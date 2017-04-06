@@ -36,7 +36,9 @@ public final class Xml2PdfFopGenerator implements PdfGenerator {
     private Xml2PdfFopGenerator() {
     }
 
-    public void generate(String inputXml2) throws FileNotFoundException, FOPException, TransformerConfigurationException {
+    public void generate(String inputXml2) throws PdfEngineException {
+        throw new PdfEngineException(PdfEngineError.PDFGEN_2000,
+                new UnsupportedOperationException("Operation not implemented yet"));
     }
 
     public void generate(String inputXml, String templateName) throws PdfEngineException {
@@ -46,8 +48,9 @@ public final class Xml2PdfFopGenerator implements PdfGenerator {
 
     /**
      * Genera el PDF a partir de un xmlSource (xml origen) y el objeto plantilla (que debe existir).
+     *
      * @param xmlSource Xml origen del que se extraen los campos del PDF.
-     * @param template Plantilla.
+     * @param template  Plantilla.
      * @throws PdfEngineException Cualquier error de envuelve en este tipo.
      */
     public static byte[] generate(String xmlSource, Template template) throws PdfEngineException {

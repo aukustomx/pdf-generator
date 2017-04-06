@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
  */
 public interface PdfGenerator {
 
-    void generate(String inputXml) throws FileNotFoundException, FOPException, TransformerConfigurationException;
+    void generate(String inputXml) throws PdfEngineException;
 
     void generate(String inputXml, String templateName) throws FileNotFoundException, FOPException,
             TransformerConfigurationException, PdfEngineException;
