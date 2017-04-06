@@ -49,6 +49,7 @@ public class TemplateEndPoint {
     @Path("/")
     @ApiOperation(value = "Agregar plantilla al microservicio de generación de PDFs")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response add(@MultipartForm TemplateForm input) throws IOException, PdfEngineException {
         logger.debug("Inicia ejecución operación add");
         return apiService.add(input);
@@ -57,6 +58,7 @@ public class TemplateEndPoint {
 
     @DELETE
     @Path("/{templateName}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam(TEMPLATE_NAME_PARAM) String templateName) throws PdfEngineException {
         logger.debug("Inicia ejecución operación delete");
         return apiService.delete(templateName);

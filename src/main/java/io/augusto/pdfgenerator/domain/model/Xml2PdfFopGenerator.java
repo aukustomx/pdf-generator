@@ -55,6 +55,8 @@ public final class Xml2PdfFopGenerator implements PdfGenerator {
      */
     public static byte[] generate(String xmlSource, Template template) throws PdfEngineException {
 
+        logger.debug("XmlSource: {}", () -> xmlSource);
+
         String uuid = UUID.randomUUID().toString();
         String pdfName = "/tmp/" + uuid + ".pdf";
 

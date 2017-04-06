@@ -5,6 +5,8 @@ import io.augusto.pdfgenerator.domain.model.Template;
 import io.augusto.pdfgenerator.infra.exception.PdfEngineError;
 import io.augusto.pdfgenerator.infra.exception.PdfEngineException;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -16,6 +18,8 @@ import java.util.List;
 @Dependent
 public class TemplateServiceImpl implements TemplateService {
 
+    private static Logger logger = LogManager.getLogger();
+
     TemplateRepository templateRepository;
 
     @Inject
@@ -25,6 +29,9 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public void add(String templateName, String templateContent) throws PdfEngineException {
+
+        logger.debug("TemplateName to add: {}  TemplateContent to add: {}", () -> templateName,
+                () -> templateContent);
 
         if (StringUtils.isEmpty(templateName)) {
             throw new PdfEngineException(PdfEngineError.PDFGEN_2001);

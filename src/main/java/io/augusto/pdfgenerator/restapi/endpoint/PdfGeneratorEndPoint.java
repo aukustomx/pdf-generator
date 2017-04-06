@@ -31,7 +31,7 @@ public class PdfGeneratorEndPoint {
     @POST
     @Path("/generate")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @Produces("application/pdf")
+    @Produces({"application/pdf", MediaType.APPLICATION_JSON})
     public Response generate(@MultipartForm PdfGeneratorForm input) throws IOException, PdfEngineException {
         logger.debug("Inicia ejecución operación generate");
         return apiService.generate(input);

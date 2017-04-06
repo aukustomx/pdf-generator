@@ -32,10 +32,10 @@ public class PdfEngineException extends Exception {
      * Devuelve un objeto Json con el código y el mensaje.
      * @return JsonObject.
      */
-    public JsonObject toJson() {
+    public String toJsonString() {
         return Json.createObjectBuilder()
                 .add("Código", this.code)
                 .add("Mensaje", this.getMessage())
-                .build();
+                .build().toString();
     }
 }

@@ -42,6 +42,8 @@ public class PdfGeneratorApiService {
      */
     public Response generate(PdfGeneratorForm input) {
 
+        logger.debug("TemplateName: {}  XmlContent: {}", () -> input.getTemplateName(), () -> input.getXmlContent());
+
         try {
             return Response
                     .status(Response.Status.OK)
@@ -54,7 +56,7 @@ public class PdfGeneratorApiService {
             logger.debug("Error al generar el pdf", () -> e.getErrorCode(), () -> e.getMessage());
             return Response
                     .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(e.toJson())
+                    .entity(e.toJsonString())
                     .build();
         }
     }

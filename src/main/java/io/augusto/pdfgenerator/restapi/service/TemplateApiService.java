@@ -65,7 +65,7 @@ public class TemplateApiService {
             logger.debug("Error al agregar la plantilla " + input.getTemplateName());
             return Response
                     .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(e.toJson())
+                    .entity(e.toJsonString())
                     .build();
         }
 
@@ -89,7 +89,7 @@ public class TemplateApiService {
             logger.debug("Error al eliminar la plantilla " + templateName);
             return Response
                     .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(e.toJson())
+                    .entity(e.toJsonString())
                     .build();
         }
         return Response

@@ -29,6 +29,8 @@ public class PdfGeneratorServiceImpl implements PdfGeneratorService {
     @Override
     public byte[] generatePdf(String templateName, String xmlSource) throws PdfEngineException {
 
+        logger.debug("TemplateName: {} XmlSource: {}", () -> templateName, () -> xmlSource);
+
         if (StringUtils.isEmpty(templateName)) {
             throw new PdfEngineException(PdfEngineError.PDFGEN_2001);
         }

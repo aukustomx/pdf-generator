@@ -16,7 +16,7 @@ public class PdfGeneratorForm {
     @PartType(MediaType.TEXT_PLAIN)
     private String templateName;
 
-    @FormParam("templateName")
+    @FormParam("xmlContent")
     @PartType(MediaType.TEXT_PLAIN)
     private String xmlContent;
 
