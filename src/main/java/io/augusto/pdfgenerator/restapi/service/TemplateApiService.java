@@ -57,9 +57,10 @@ public class TemplateApiService {
 
         try {
             if (input.isPersistent()) {
-                domainService.addAndPersist(input.getTemplateName(), input.getTemplateContent());
+                domainService.addAndPersist(input.getTemplateName(), input.getTemplateContent(),
+                        input.getTemplateType());
             } else {
-                domainService.add(input.getTemplateName(), input.getTemplateContent());
+                domainService.add(input.getTemplateName(), input.getTemplateContent(), input.getTemplateType());
             }
         } catch (PdfEngineException e) {
             logger.debug("Error al agregar la plantilla " + input.getTemplateName());
@@ -82,9 +83,9 @@ public class TemplateApiService {
      * @param templateName Nombre de la plantilla a eliminar.
      * @return Respuesta de exito o error.
      */
-    public Response delete(String templateName) {
+    public Response delete(String templateName, String templateType) {
         try {
-            domainService.delete(templateName);
+            domainService.delete(templateName, templateType);
         } catch (PdfEngineException e) {
             logger.debug("Error al eliminar la plantilla " + templateName);
             return Response

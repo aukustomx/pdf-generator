@@ -17,28 +17,24 @@ public class Template {
     private static final Logger logger = LogManager.getLogger(Template.class);
 
     private String name;
-    private Templates compiledTemplate;
+    private Object compiledTemplate;
+    private TemplateType type;
 
-    public Template(String name, Templates compiledTemplate) {
+    public Template(String name, Object compiledTemplate, TemplateType type) {
         this.name = name;
         this.compiledTemplate = compiledTemplate;
+        this.type = type;
     }
 
     public String getName() {
         return name;
     }
 
-    public Templates getCompiledTemplate() {
+    public Object getCompiledTemplate() {
         return compiledTemplate;
     }
 
-    public Transformer newTransformer() throws PdfEngineException {
-        try {
-            return compiledTemplate.newTransformer();
-        } catch (TransformerConfigurationException e) {
-            logger.info("Error al intentar devolver un nuevo transformer de la plantilla {}", () -> name);
-            logger.info(() -> PdfEngineError.PDFGEN_2006.getDescription());
-            throw new PdfEngineException(PdfEngineError.PDFGEN_2000);
-        }
+    public TemplateType getType() {
+        return type;
     }
 }

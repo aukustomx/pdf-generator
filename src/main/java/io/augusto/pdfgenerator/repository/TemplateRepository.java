@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -19,38 +20,38 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public interface TemplateRepository {
 
     /**
-     * Verifica si una plantilla con nombre templateName existe o no.
+     * Verifica si una plantilla con nombre name existe o no.
      *
-     * @param templateName Nombre de plantilla.
+     * @param name Nombre de plantilla.
      * @return true/false en caso de que la plantilla exista o no respectivamente.
      */
-    boolean existTemplate(String templateName);
+    boolean existTemplate(String name);
 
     /**
      * Expone la funcionalidad de alta de una nueva plantilla.
      *
-     * @param templateName    Nombre de platilla que se asigna a la plantilla agregada.
-     * @param templateContent Contenido (xml) de la plantilla como String.
+     * @param name    Nombre de platilla que se asigna a la plantilla agregada.
+     * @param content Contenido (xml) de la plantilla como String.
      * @throws PdfEngineException Se lanza en caso de error.
      */
-    void add(String templateName, String templateContent) throws PdfEngineException;
+    void add(String name, String content) throws PdfEngineException;
 
     /**
      * Al igual que el método add, este agrega la plantilla y además las persiste en el file
      * system donde corre la aplicación.
      *
-     * @param templateName    Nombre de platilla que se asigna a la plantilla agregada.
-     * @param templateContent Contenido (xml) de la plantilla como String.
+     * @param name    Nombre de platilla que se asigna a la plantilla agregada.
+     * @param content Contenido (xml) de la plantilla como String.
      * @throws PdfEngineException Se lanza en caso de error.
      */
-    void persist(String templateName, String templateContent) throws PdfEngineException;
+    void persist(String name, String content) throws PdfEngineException;
 
     /**
-     * Si existe, elimina la plantilla con el nombre templateName.
+     * Si existe, elimina la plantilla con el nombre name.
      *
-     * @param templateName Nombre de platilla que se asigna a la plantilla agregada.
+     * @param name Nombre de platilla que se asigna a la plantilla agregada.
      */
-    void delete(String templateName);
+    void delete(String name);
 
     /**
      * Devuelve la lista de todos los nombres de plantilla fo cargadas en memoria
@@ -58,20 +59,27 @@ public interface TemplateRepository {
      *
      * @return Lista de nombres de plantillas.
      */
-    List<String> all();
+    Map<String, String> all();
 
     /**
      * Responsable de regresar la plantilla (compilada) con el nombre de plantilla que recibe
      * como parámetro; esto si la plantilla existe.
      *
-     * @param templateName Nombre de la plantilla a recuperar.
+     * @param name Nombre de la plantilla a recuperar.
      * @return Plantilla compilada.
      */
-    Template byName(String templateName);
+    Template byName(String name);
 
-    default void writeFile(Path path, String fileContent) throws PdfEngineException {
+    /**
+     * Escribe un string a un archivo en el file system en la ruta recibida.
+     *
+     * @param path    Ruta destino del archivo a escribir.
+     * @param content Contenido, en cadena, que tendrá el archivo.
+     * @throws PdfEngineException Si sucede algun error al guardar el archivo en FS
+     */
+    default void writeFile(Path path, String content) throws PdfEngineException {
         try {
-            Files.write(path, fileContent.getBytes(UTF_8));
+            Files.write(path, content.getBytes(UTF_8));
         } catch (IOException e) {
             throw new PdfEngineException(PdfEngineError.PDFGEN_2005, e);
         }

@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
+import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.sax.SAXResult;
@@ -66,7 +67,7 @@ public final class Xml2PdfFopGenerator implements PdfGenerator {
             Source src = new StreamSource(new StringReader(xmlSource));
             Result res = new SAXResult(fop.getDefaultHandler());
 
-            Transformer transformer = template.newTransformer();
+            Transformer transformer = ((Templates)(template.getCompiledTemplate())).newTransformer();
             transformer.transform(src, res);
             out.flush();
 

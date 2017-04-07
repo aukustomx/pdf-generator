@@ -5,11 +5,11 @@ import javax.enterprise.util.AnnotationLiteral;
 /**
  * Created by j49u4r on 4/6/17.
  */
-public class RepoAnnotationLiteral extends AnnotationLiteral<Repo> implements Repo {
+public class RepoLiteral extends AnnotationLiteral<Repo> implements Repo {
 
     private String value;
 
-    private RepoAnnotationLiteral(String theValue) {
+    private RepoLiteral(String theValue) {
         this.value = theValue;
     }
 
@@ -18,7 +18,7 @@ public class RepoAnnotationLiteral extends AnnotationLiteral<Repo> implements Re
         return value;
     }
 
-    public static RepoAnnotationLiteral repo(String theValue) {
-        return new RepoAnnotationLiteral(theValue);
+    public static RepoLiteral repo(String theValue) {
+        return new RepoLiteral(theValue);
     }
 }

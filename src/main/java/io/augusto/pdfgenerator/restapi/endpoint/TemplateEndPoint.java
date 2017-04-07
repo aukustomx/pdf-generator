@@ -33,6 +33,7 @@ public class TemplateEndPoint {
     private static Logger logger = LogManager.getLogger();
 
     private static final String TEMPLATE_NAME_PARAM = "templateName";
+    private static final String TEMPLATE_TYPE_PARAM = "templateType";
 
     @Inject
     private TemplateApiService apiService;
@@ -59,8 +60,10 @@ public class TemplateEndPoint {
     @DELETE
     @Path("/{templateName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam(TEMPLATE_NAME_PARAM) String templateName) throws PdfEngineException {
+    public Response delete(@PathParam(TEMPLATE_NAME_PARAM) String templateName,
+                           @PathParam(TEMPLATE_TYPE_PARAM) String templateType) throws PdfEngineException {
+
         logger.debug("Inicia ejecución operación delete");
-        return apiService.delete(templateName);
+        return apiService.delete(templateName, templateType);
     }
 }

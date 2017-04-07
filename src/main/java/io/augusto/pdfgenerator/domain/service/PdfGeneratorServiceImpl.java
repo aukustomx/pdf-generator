@@ -39,7 +39,7 @@ public class PdfGeneratorServiceImpl implements PdfGeneratorService {
             throw new PdfEngineException(PdfEngineError.PDFGEN_2101);
         }
 
-        Template template = templateService.byName(templateName);
+        Template template = (Template) templateService.byName(templateName);
         logger.debug("La plantilla compilada es null ? {}", () -> null == template.getCompiledTemplate());
         return Xml2PdfFopGenerator.generate(xmlSource, template);
     }

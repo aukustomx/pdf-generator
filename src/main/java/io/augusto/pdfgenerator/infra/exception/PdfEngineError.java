@@ -41,6 +41,11 @@ public enum PdfEngineError {
     PDFGEN_2007("PDFGEN_2007", "Ocurrió un error al intentar agregar la plantilla"),
 
     /**
+     * Informa cuando se recibe un tipo de plantilla que no existe.
+     */
+    PDFGEN_2008("PDFGEN_2008", "En tipo de plantilla no existe"),
+
+    /**
      * Para informar que el xml origen (del cual se extrae la información para generar el pdf) no puede
      * ser nulo o vacío.
      */
