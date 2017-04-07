@@ -38,7 +38,7 @@ public class TemplateRepositoryTest {
     @Test
     public void a_allEmptyListTest() throws PdfEngineException {
 
-        TemplateRepositoryImpl repository = new TemplateRepositoryImpl();
+        TemplateFopRepositoryImpl repository = new TemplateFopRepositoryImpl();
         assertNotNull(repository.all());
         assertEquals(0, repository.all().size());
     }
@@ -51,7 +51,7 @@ public class TemplateRepositoryTest {
     @Test
     public void addTest() throws PdfEngineException {
 
-        TemplateRepositoryImpl repository = new TemplateRepositoryImpl();
+        TemplateFopRepositoryImpl repository = new TemplateFopRepositoryImpl();
         String templateName = "TEMPLATE_ADD";
         String templateContent = getFile("template1.xsl");
         repository.add(templateName, templateContent);
@@ -64,7 +64,7 @@ public class TemplateRepositoryTest {
      */
     @Test
     public void byNameTest() throws PdfEngineException {
-        TemplateRepositoryImpl repository = new TemplateRepositoryImpl();
+        TemplateFopRepositoryImpl repository = new TemplateFopRepositoryImpl();
 
         String templateName = "TEMPLATE_BY_NAME";
         String templateContent = getFile("template1.xsl");
@@ -80,7 +80,7 @@ public class TemplateRepositoryTest {
      */
     @Test
     public void persistTest() throws PdfEngineException {
-        TemplateRepositoryImpl repository = new TemplateRepositoryImpl();
+        TemplateFopRepositoryImpl repository = new TemplateFopRepositoryImpl();
         String templateName = "TEMPLATE_PERSIST";
         String templateContent = getFile("template1.xsl");
 
@@ -98,7 +98,7 @@ public class TemplateRepositoryTest {
 
     @Test
     public void existTemplateTest() throws PdfEngineException {
-        TemplateRepositoryImpl repository = new TemplateRepositoryImpl();
+        TemplateFopRepositoryImpl repository = new TemplateFopRepositoryImpl();
         String templateName = "TEMPLATE_EXISTING";
         String templateContent = getFile("template1.xsl");
 
@@ -111,7 +111,7 @@ public class TemplateRepositoryTest {
     @Test
     public void allTest() throws PdfEngineException {
 
-        TemplateRepositoryImpl repository = new TemplateRepositoryImpl();
+        TemplateFopRepositoryImpl repository = new TemplateFopRepositoryImpl();
         String templateContent = getFile("template1.xsl");
 
         String templateName1 = "TEMPLATE_EXISTING_1";

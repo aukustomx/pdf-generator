@@ -10,8 +10,8 @@ import java.util.List;
  */
 public interface TemplateService {
 
-    void add(String templateName, String templateContent) throws PdfEngineException;
-    void addAndPersist(String templateName, String templateContent) throws PdfEngineException;
+    void add(String templateName, String templateContent, String templateType) throws PdfEngineException;
+    void addAndPersist(String templateName, String templateContent, String templateType) throws PdfEngineException;
     void delete(String templateName) throws PdfEngineException;
     List<String> all();
     Template byName(String templateName) throws PdfEngineException;

@@ -21,6 +21,10 @@ public class TemplateForm {
     @PartType(MediaType.TEXT_PLAIN)
     private String templateContent;
 
+    @FormParam("templateType")
+    @PartType(MediaType.TEXT_PLAIN)
+    private String templateType;
+
     @FormParam("isPersistent")
     @PartType(MediaType.TEXT_PLAIN)
     private boolean isPersistent;
@@ -45,6 +49,14 @@ public class TemplateForm {
 
     public void setTemplateContent(String templateContent) {
         this.templateContent = templateContent;
+    }
+
+    public String getTemplateType() {
+        return templateType;
+    }
+
+    public void setTemplateType(String templateType) {
+        this.templateType = templateType;
     }
 
     public boolean isPersistent() {

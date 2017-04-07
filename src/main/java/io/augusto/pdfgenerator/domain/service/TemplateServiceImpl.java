@@ -1,5 +1,6 @@
 package io.augusto.pdfgenerator.domain.service;
 
+import io.augusto.pdfgenerator.repository.RepoAnnotationLiteral;
 import io.augusto.pdfgenerator.repository.TemplateRepository;
 import io.augusto.pdfgenerator.domain.model.Template;
 import io.augusto.pdfgenerator.infra.exception.PdfEngineError;
@@ -9,6 +10,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import java.util.List;
 
@@ -20,18 +23,18 @@ public class TemplateServiceImpl implements TemplateService {
 
     private static Logger logger = LogManager.getLogger();
 
+    @Inject @Any
+    private Instance<TemplateRepository> repositories;
+
     TemplateRepository templateRepository;
 
-    @Inject
-    public TemplateServiceImpl(TemplateRepository repository) {
-        this.templateRepository = repository;
-    }
-
     @Override
-    public void add(String templateName, String templateContent) throws PdfEngineException {
+    public void add(String templateName, String templateContent, String templateType) throws PdfEngineException {
 
         logger.debug("TemplateName to add: {}  TemplateContent to add: {}", () -> templateName,
                 () -> templateContent);
+
+        templateRepository = repositories.select(RepoAnnotationLiteral.repo(templateType)).get();
 
         if (StringUtils.isEmpty(templateName)) {
             throw new PdfEngineException(PdfEngineError.PDFGEN_2001);
@@ -49,8 +52,9 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
-    public void addAndPersist(String templateName, String templateContent) throws PdfEngineException {
-        add(templateName, templateContent);
+    public void addAndPersist(String templateName, String templateContent, String templateType) throws PdfEngineException {
+        templateRepository = repositories.select(RepoAnnotationLiteral.repo(templateType)).get();
+        add(templateName, templateContent, templateType);
         templateRepository.persist(templateName, templateContent);
     }
 

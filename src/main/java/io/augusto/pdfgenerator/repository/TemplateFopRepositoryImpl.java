@@ -13,6 +13,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,17 +24,18 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 /**
  * Created by j49u4r on 3/22/17.
  */
+@Repo("fop")
 @ApplicationScoped
-public class TemplateRepositoryImpl implements TemplateRepository {
+public class TemplateFopRepositoryImpl implements TemplateRepository {
 
     private static Logger logger = LogManager.getLogger();
     private static ConcurrentHashMap<String, Template> templates = new ConcurrentHashMap<String, Template>();
-    private static final String PERSISTED_TEMPLATES_DIRECTORY = "/data/templates/";
+    private static final String PERSISTED_TEMPLATES_DIRECTORY = "/data/templates/fop/";
 
     /**
      * {@inheritDoc}
      */
-    public TemplateRepositoryImpl() {
+    public TemplateFopRepositoryImpl() {
     }
 
     /**
@@ -73,15 +75,8 @@ public class TemplateRepositoryImpl implements TemplateRepository {
     public void persist(String templateName, String templateContent) throws PdfEngineException {
 
         String xslFileName = PERSISTED_TEMPLATES_DIRECTORY + templateName + ".xsl";
-
-        try {
-            Files.write(Paths.get(xslFileName), templateContent.getBytes(UTF_8));
-            logger.debug("Archivo {} de plantilla {} agregado correctamente ", () -> templateName,
-                    () -> xslFileName);
-        } catch (IOException e) {
-            logger.info("No fue posible persistir el archivo plantilla");
-            throw new PdfEngineException(PdfEngineError.PDFGEN_2005, e);
-        }
+        writeFile(Paths.get(xslFileName), templateContent);
+        logger.debug("Archivo {} de plantilla {} agregado correctamente ", () -> templateName, () -> xslFileName);
     }
 
     /**

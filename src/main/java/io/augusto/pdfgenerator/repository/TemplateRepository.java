@@ -1,9 +1,17 @@
 package io.augusto.pdfgenerator.repository;
 
 import io.augusto.pdfgenerator.domain.model.Template;
+import io.augusto.pdfgenerator.infra.exception.PdfEngineError;
 import io.augusto.pdfgenerator.infra.exception.PdfEngineException;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Logger;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Created by j49u4r on 3/23/17.
@@ -60,4 +68,12 @@ public interface TemplateRepository {
      * @return Plantilla compilada.
      */
     Template byName(String templateName);
+
+    default void writeFile(Path path, String fileContent) throws PdfEngineException {
+        try {
+            Files.write(path, fileContent.getBytes(UTF_8));
+        } catch (IOException e) {
+            throw new PdfEngineException(PdfEngineError.PDFGEN_2005, e);
+        }
+    }
 }
